@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Szkoła Schoral Erazmus - Gra</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #game {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      width: 600px;
+      max-width: 90%;
+    }
+    .choice {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background: #e0e0ff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .choice:hover {
+      background: #c0c0ff;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <h1>Szkoła Schoral Erazmus</h1>
+    <div id="content"></div>
+  </div>
+
+  <script>
+    const content = document.getElementById("content");
+    let playerPath = [];
+
+    function showMenu() {
+      content.innerHTML = `
+        <h2>Menu Główne</h2>
+        <button class="choice" onclick="showLevels()">Wybierz Poziom</button>
+      `;
+    }
+
+    function showLevels() {
+      content.innerHTML = `
+        <h2>Wybór Poziomu</h2>
+        <button class="choice" onclick="level1()">Poziom 1</button>
+        <button class="choice" onclick="level2()">Poziom 2</button>
+        <button class="choice" onclick="level3()">Poziom 3</button>
+        <button class="choice" onclick="level4()">Poziom 4</button>
+        <button class="choice" onclick="level5()">Poziom 5</button>
+        <button class="choice" onclick="level6()">Poziom 6</button>
+        <button class="choice" onclick="showMenu()">Powrót</button>
+      `;
+    }
+
+    // ===== POZIOM 1 =====
+    function level1() {
+      playerPath = []; // reset ścieżki dla nowej gry
+      content.innerHTML = `
+        <h2>Poziom 1</h2>
+        <p>Jesteś w klasie 7 w Szkole Schoral Erazmus. Wokół Ciebie są Twoi znajomi: Ksawery, Filip, Dawid, Oskar, Milena, Wiktoria, Natalka, Szymon, Marcel, Adam, Sławek, Oliwia, Kuba, Karol i Roxana.</p>
+        <p>Nauczyciel wyszedł z klasy. Co robisz?</p>
+        <button class="choice" onclick="lvl1_choice1()">Zaczynasz gadać z Dawidem i Oskarem</button>
+        <button class="choice" onclick="lvl1_choice2()">Siedzisz spokojnie przy Szymonie</button>
+      `;
+    }
+
+    // WYBÓR 1
+    function lvl1_choice1() {
+      playerPath.push("smiech");
+      content.innerHTML = `
+        <h2>Rozmowa</h2>
+        <p>Dawid i Oskar zaczynają rzucać żartami. Cała klasa się śmieje. Co robisz?</p>
+        <button class="choice" onclick="lvl1_choice1a()">Śmiejesz się razem z nimi</button>
+        <button class="choice" onclick="lvl1_choice1b()">Podrzucasz własny żart</button>
+      `;
+    }
+
+    function lvl1_choice1a() {
+      playerPath.push("smiech_z_klasa");
+      content.innerHTML = `
+        <h2>Śmiech</h2>
+        <p>Milena i Wiktoria zaczynają pyskatą wymianę zdań z Oliwią. Atmosfera robi się gorąca.</p>
+        <button class="choice" onclick="endLevel('Dostałeś uwagę za śmianie się z żartów! Koniec poziomu.')">Zakończ</button>
+      `;
+    }
+
+    function lvl1_choice1b() {
+      playerPath.push("twoj_zart");
+      content.innerHTML = `
+        <h2>Twój żart</h2>
+        <p>Cała klasa wybucha śmiechem, a nauczyciel wraca i patrzy podejrzliwie.</p>
+        <button class="choice" onclick="endLevel('Nauczyciel podejrzewa, że to Ty żartowałeś. Koniec poziomu.')">Zakończ</button>
+      `;
+    }
+
+    // WYBÓR 2
+    function lvl1_choice2() {
+      playerPath.push("spokoj");
+      content.innerHTML = `
+        <h2>Spokój</h2>
+        <p>Szymon patrzy na Ciebie z uznaniem. Co robisz dalej?</p>
+        <button class="choice" onclick="lvl1_choice2a()">Rozmawiasz z Roxaną o mediach</button>
+        <button class="choice" onclick="lvl1_choice2b()">Rozmawiasz z Marcelem o siłowni</button>
+      `;
+    }
+
+    function lvl1_choice2a() {
+      playerPath.push("roxana_media");
+      content.innerHTML = `
+        <h2>Media</h2>
+        <p>Roxana zaczyna opowiadać o najnowszych trendach w mediach społecznościowych.</p>
+        <button class="choice" onclick="endLevel('Dowiedziałeś się czegoś nowego o mediach. Koniec poziomu.')">Zakończ</button>
+      `;
+    }
+
+    function lvl1_choice2b() {
+      playerPath.push("marcel_silownia");
+      content.innerHTML = `
+        <h2>Siłownia</h2>
+        <p>Marcel opowiada o swoich treningach. Czujesz się zmotywowany.</p>
+        <button class="choice" onclick="endLevel('Może też pójdziesz na siłownię? Koniec poziomu.')">Zakończ</button>
+      `;
+    }
+
+    function endLevel(message) {
+      content.innerHTML = `
+        <h2>Koniec Poziomu 1</h2>
+        <p>${message}</p>
+        <button class="choice" onclick="showLevels()">Powrót do wyboru poziomu</button>
+      `;
+    }
+
+    // ===== POZIOM 2 =====
+    function level2() {
+      if (playerPath.length === 0) {
+        content.innerHTML = `
+          <h2>Poziom 2</h2>
+          <p>Najpierw musisz ukończyć Poziom 1, aby odblokować decyzje!</p>
+          <button class="choice" onclick="showLevels()">Powrót</button>
+        `;
+        return;
+      }
+
+      if (playerPath.includes("smiech")) {
+        content.innerHTML = `
+          <h2>Poziom 2</h2>
+          <p>Twoje żarty z Dawidem i Oskarem zrobiły z Ciebie klasowego rozrabiakę. Teraz na przerwie Adam i Sławek chcą, żebyś dołączył do ich grupy. Co robisz?</p>
+          <button class="choice" onclick="lvl2_fun1()">Dołączasz</button>
+          <button class="choice" onclick="lvl2_fun2()">Odmów</button>
+        `;
+      } else if (playerPath.includes("spokoj")) {
+        content.innerHTML = `
+          <h2>Poziom 2</h2>
+          <p>Twoje spokojne zachowanie spodobało się nauczycielowi. Teraz na przerwie Kuba i Karol zapraszają Cię do wspólnej gry na telefonie. Co robisz?</p>
+          <button class="choice" onclick="lvl2_calm1()">Grasz z nimi</button>
+          <button class="choice" onclick="lvl2_calm2()">Odmów</button>
+        `;
+      }
+    }
+
+    // ŚCIEŻKA ROZBIRIAKA
+    function lvl2_fun1() {
+      content.innerHTML = `
+        <h2>Adam i Sławek</h2>
+        <p>Adam i Sławek proponują Ci wspólny psikus na Milenie. Co robisz?</p>
+        <button class="choice" onclick="endLevel2('Psikus się udał, ale dostałeś uwagę od nauczyciela! Koniec poziomu.')">Robisz psikus</button>
+        <button class="choice" onclick="endLevel2('Odmówiłeś i zachowałeś spokój – Adam i Sławek byli zawiedzeni. Koniec poziomu.')">Odmów</button>
+      `;
+    }
+
+    function lvl2_fun2() {
+      content.innerHTML = `
+        <h2>Odmowa</h2>
+        <p>Wracasz do Dawida i Oskara. Proponują Ci nowy żart na nauczyciela.</p>
+        <button class="choice" onclick="endLevel2('Żart wyszedł i cała klasa się śmiała – ale nauczyciel znów był podejrzliwy. Koniec poziomu.')">Zgadzasz się</button>
+        <button class="choice" onclick="endLevel2('Odmówiłeś – Dawid i Oskar uznali Cię za nudziarza. Koniec poziomu.')">Nie zgadzasz się</button>
+      `;
+    }
+
+    // ŚCIEŻKA SPOKOJNA
+    function lvl2_calm1() {
+      content.innerHTML = `
+        <h2>Gra na telefonie</h2>
+        <p>Kuba i Karol proponują Ci grę drużynową. Co wybierasz?</p>
+        <button class="choice" onclick="endLevel2('Wygraliście razem i zostaliście super kumplami! Koniec poziomu.')">Grasz z nimi</button>
+        <button class="choice" onclick="endLevel2('Znudziło Cię to i poszedłeś pogadać z innymi. Koniec poziomu.')">Rezygnujesz</button>
+      `;
+    }
+
+    function lvl2_calm2() {
+      content.innerHTML = `
+        <h2>Szymon i zasady</h2>
+        <p>Szymon proponuje Ci dołączyć do kółka regulaminowego. Co robisz?</p>
+        <button class="choice" onclick="endLevel2('Dołączyłeś i pomogłeś spisać nowe zasady w klasie! Koniec poziomu.')">Dołączasz</button>
+        <button class="choice" onclick="endLevel2('Odmówiłeś – Szymon się zawiódł. Koniec poziomu.')">Odmów</button>
+      `;
+    }
+
+    function endLevel2(message) {
+      content.innerHTML = `
+        <h2>Koniec Poziomu 2</h2>
+        <p>${message}</p>
+        <button class="choice" onclick="showLevels()">Powrót do wyboru poziomu</button>
+      `;
+    }
+    
+        // ===== POZIOM 3 =====
+    function level3() {
+      if (playerPath.length === 0) {
+        content.innerHTML = `
+          <h2>Poziom 3</h2>
+          <p>Najpierw musisz ukończyć Poziom 2, aby odblokować decyzje!</p>
+          <button class="choice" onclick="showLevels()">Powrót</button>
+        `;
+        return;
+      }
+
+      if (playerPath.includes("smiech")) {
+        content.innerHTML = `
+          <h2>Poziom 3</h2>
+          <p>Twoja rozrabiactwo rośnie w siłę! Milena i Wiktoria próbują wciągnąć Cię w kłótnię z Oliwią. Co robisz?</p>
+          <button class="choice" onclick="lvl3_fun1()">Dołączasz</button>
+          <button class="choice" onclick="lvl3_fun2()">Ignorujesz</button>
+        `;
+      } else if (playerPath.includes("spokoj")) {
+        content.innerHTML = `
+          <h2>Poziom 3</h2>
+          <p>Twoje spokojne podejście sprawiło, że nauczyciel daje Ci odpowiedzialne zadanie. Ale Kuba i Karol też chcą, żebyś pograł z nimi. Co wybierasz?</p>
+          <button class="choice" onclick="lvl3_calm1()">Pomagasz nauczycielowi</button>
+          <button class="choice" onclick="lvl3_calm2()">Idziesz grać</button>
+        `;
+      }
+    }
+
+    // ŚCIEŻKA ROZRABIACZA
+    function lvl3_fun1() {
+  content.innerHTML = `
+    <h2>Kłótnia</h2>
+    <p>Dołączasz do kłótni – atmosfera robi się naprawdę gorąca.</p>
+    <button class="choice" onclick="endLevel3('Nauczyciel przyłapał Cię na kłótni – uwaga wpisana! Koniec poziomu.')">Zostajesz przyłapany</button>
+    <button class="choice" onclick="playerPath.push('uciekasz'); endLevel3('Uciekłeś z kłótni w ostatniej chwili, Milena, Wiktoria i Oliwia dostały uwagę i są na Ciebie obrażone – nie rozmawiają z Tobą. Koniec poziomu.')">Uciekasz</button>
+  `;
+}
+
+
+    function lvl3_fun2() {
+      content.innerHTML = `
+        <h2>Kumple</h2>
+        <p>Wracasz do Adama i Sławka – proponują trening na boisku.</p>
+        <button class="choice" onclick="endLevel3('Trening był świetny, zyskałeś nowych przyjaciół! Koniec poziomu.')">Trenujesz</button>
+        <button class="choice" onclick="endLevel3('Odmówiłeś – Adam i Sławek poszli sami. Koniec poziomu.')">Odmów</button>
+      `;
+    }
+
+    // ŚCIEŻKA SPOKOJNA
+    function lvl3_calm1() {
+      content.innerHTML = `
+        <h2>Pomoc nauczycielowi</h2>
+        <p>Nauczyciel prosi Cię o sprawdzenie obecności w dzienniku.</p>
+        <button class="choice" onclick="endLevel3('Pomogłeś i nauczyciel Cię pochwalił! Koniec poziomu.')">Pomagasz</button>
+        <button class="choice" onclick="endLevel3('Zrezygnowałeś w połowie – nauczyciel był zawiedziony. Koniec poziomu.')">Rezygnujesz</button>
+      `;
+    }
+
+    function lvl3_calm2() {
+      content.innerHTML = `
+        <h2>Gra online</h2>
+        <p>Kuba i Karol proponują wspólną rozgrywkę po lekcjach.</p>
+        <button class="choice" onclick="endLevel3('Gracie razem i świetnie się bawicie. Koniec poziomu.')">Dołączasz</button>
+        <button class="choice" onclick="endLevel3('Nie chciało Ci się grać – chłopaki trochę się obrazili. Koniec poziomu.')">Odmów</button>
+      `;
+    }
+
+    function endLevel3(message) {
+      content.innerHTML = `
+        <h2>Koniec Poziomu 3</h2>
+        <p>${message}</p>
+        <button class="choice" onclick="showLevels()">Powrót do wyboru poziomu</button>
+      `;
+    }
+    
+    function level4() {
+      if (playerPath.length === 0) {
+        content.innerHTML = `
+          <h2>Poziom 4</h2>
+          <p>Najpierw musisz ukończyć wcześniejsze poziomy, aby odblokować ten!</p>
+          <button class="choice" onclick="showLevels()">Powrót</button>
+        `;
+        return;
+      }
+
+      if (playerPath.includes("smiech")) {
+        content.innerHTML = `
+          <h2>Poziom 4</h2>
+          <p>Twoja reputacja rozrabiaki jest już wszędzie znana. Marcel z siłowni proponuje Ci siłowe wyzwanie, a Oskar – nowy żart na nauczyciela. Co wybierasz?</p>
+          <button class="choice" onclick="lvl4_fun1()">Siłowe wyzwanie</button>
+          <button class="choice" onclick="lvl4_fun2()">Nowy żart</button>
+        `;
+      } else if (playerPath.includes("spokoj")) {
+        content.innerHTML = `
+          <h2>Poziom 4</h2>
+          <p>Twoja spokojna postawa zyskała szacunek u Szymona. Proponuje wspólną organizację zasad w klasie, ale Roxana zaprasza Cię do wspólnego oglądania mediów. Co robisz?</p>
+          <button class="choice" onclick="lvl4_calm1()">Pomagasz Szymonowi</button>
+          <button class="choice" onclick="lvl4_calm2()">Idziesz do Roxany</button>
+        `;
+      }
+    }
+
+    // ŚCIEŻKA ROZRABIACZA
+    function lvl4_fun1() {
+      content.innerHTML = `
+        <h2>Siłowe wyzwanie</h2>
+        <p>Marcel wyzywa Cię na pojedynek w podnoszeniu ciężarów.</p>
+        <button class="choice" onclick="endLevel4('Dałeś radę i wszyscy byli pod wrażeniem! Koniec poziomu.')">Podejmujesz wyzwanie</button>
+        <button class="choice" onclick="endLevel4('Odmówiłeś – Marcel stracił do Ciebie szacunek. Koniec poziomu.')">Odmów</button>
+      `;
+    }
+
+    function lvl4_fun2() {
+      content.innerHTML = `
+        <h2>Nowy żart</h2>
+        <p>Oskar proponuje Ci psikus na nauczycielu.</p>
+        <button class="choice" onclick="endLevel4('Żart wyszedł genialnie – cała klasa się śmiała! Koniec poziomu.')">Zgadzasz się</button>
+        <button class="choice" onclick="endLevel4('Odmówiłeś – Oskar był zawiedziony. Koniec poziomu.')">Odmów</button>
+      `;
+    }
+
+    // ŚCIEŻKA SPOKOJNA
+    function lvl4_calm1() {
+      content.innerHTML = `
+        <h2>Pomoc Szymonowi</h2>
+        <p>Pomagasz Szymonowi spisać regulamin.</p>
+        <button class="choice" onclick="endLevel4('Regulamin wyszedł świetnie – cała klasa była dumna! Koniec poziomu.')">Pomagasz</button>
+        <button class="choice" onclick="endLevel4('Zrezygnowałeś – Szymon był rozczarowany. Koniec poziomu.')">Rezygnujesz</button>
+      `;
+    }
+
+    function lvl4_calm2() {
+      content.innerHTML = `
+        <h2>Oglądanie z Roxaną</h2>
+        <p>Roxana pokazuje Ci nowe media.</p>
+        <button class="choice" onclick="endLevel4('Świetnie się bawiliście oglądając razem. Koniec poziomu.')">Oglądasz</button>
+        <button class="choice" onclick="endLevel4('Nie było to dla Ciebie ciekawe – Roxana się obraziła. Koniec poziomu.')">Odmów</button>
+      `;
+    }
+
+    function endLevel4(message) {
+      content.innerHTML = `
+        <h2>Koniec Poziomu 4</h2>
+        <p>${message}</p>
+        <button class="choice" onclick="showLevels()">Powrót do wyboru poziomu</button>
+      `;
+    }
+    
+function level5() {
+  if (playerPath.length === 0) {
+    content.innerHTML = `
+      <h2>Poziom 5</h2>
+      <p>Najpierw musisz ukończyć wcześniejsze poziomy, aby odblokować ten!</p>
+      <button class="choice" onclick="showLevels()">Powrót</button>
+    `;
+    return;
+  }
+
+  // Sprawdzenie, czy gracz wybrał "Uciekasz" w lvl3_fun1
+  if (playerPath.includes("uciekasz")) {
+    content.innerHTML = `
+      <div id="warning" style="background:black; color:red; font-size:40px; text-align:center; height:300px; display:flex; justify-content:center; align-items:center;">
+        PAMIĘTAM CIĘ
+      </div>
+    `;
+
+    let warning = document.getElementById("warning");
+    let visible = true;
+
+    // migający napis
+    let blink = setInterval(() => {
+      warning.style.color = visible ? "darkred" : "red";
+      visible = !visible;
+    }, 500);
+
+    // po 5 sekundach zakończ animację i przejdź do normalnego poziomu 5
+    setTimeout(() => {
+      clearInterval(blink);
+      showLevel5Choices();
+    }, 5000);
+  } else {
+    showLevel5Choices();
+  }
+}
+
+function showLevel5Choices() {
+  content.innerHTML = `
+    <h2>Poziom 5</h2>
+    <p>Nowy dzień w szkole. Co robisz?</p>
+    <button class="choice" onclick="lvl5_choice1()">Rozmawiasz z Dawidem i Oskarem</button>
+    <button class="choice" onclick="lvl5_choice2()">Pomagasz Szymonowi z zasadami</button>
+  `;
+}
+
+// WYBORY POZIOM 5
+function lvl5_choice1() {
+  content.innerHTML = `
+    <h2>Żarty</h2>
+    <p>Dawid i Oskar chcą nowego żartu na nauczyciela. Co robisz?</p>
+    <button class="choice" onclick="endLevel5('Żart wyszedł genialnie – wszyscy się śmiali. Koniec poziomu.')">Zgadzasz się</button>
+    <button class="choice" onclick="endLevel5('Odmówiłeś – Dawid i Oskar byli zawiedzeni. Koniec poziomu.')">Odmów</button>
+  `;
+}
+
+function lvl5_choice2() {
+  content.innerHTML = `
+    <h2>Zasady</h2>
+    <p>Szymon potrzebuje pomocy w spisaniu zasad. Co robisz?</p>
+    <button class="choice" onclick="endLevel5('Pomogłeś i wszyscy byli zadowoleni. Koniec poziomu.')">Pomagasz</button>
+    <button class="choice" onclick="endLevel5('Odmówiłeś – Szymon był zawiedziony. Koniec poziomu.')">Odmów</button>
+  `;
+}
+
+function endLevel5(message) {
+  content.innerHTML = `
+    <h2>Koniec Poziomu 5</h2>
+    <p>${message}</p>
+    <button class="choice" onclick="showLevels()">Powrót do wyboru poziomu</button>
+  `;
+}
+
+function level6() {
+  if (playerPath.length === 0) {
+    content.innerHTML = `
+      <h2>Poziom 6</h2>
+      <p>Najpierw musisz ukończyć wcześniejsze poziomy!</p>
+      <button class="choice" onclick="showLevels()">Powrót</button>
+    `;
+    return;
+  }
+
+  // Start poziomu
+  content.innerHTML = `
+    <h2>Poziom 6</h2>
+    <p>Cała klasa skończyła lekcję i idziecie do pizzerii. Po drodze koleżanki i koledzy zadają Ci pytania.</p>
+    <button class="choice" onclick="lvl6_question1()">Odpowiadasz na pytanie 1</button>
+  `;
+}
+
+// Pytania i odpowiedzi
+function lvl6_question1() {
+  content.innerHTML = `
+    <h2>Pytanie 1</h2>
+    <p>Kuba pyta: \"Jak Ci minęła lekcja?\"</p>
+    <button class="choice" onclick="lvl6_question2()">Odpowiedź: Dobrze</button>
+    <button class="choice" onclick="lvl6_question2()">Odpowiedź: Niezbyt</button>
+  `;
+}
+
+function lvl6_question2() {
+  content.innerHTML = `
+    <h2>Pytanie 2</h2>
+    <p>Roxana pyta: \"Co planujesz na przerwę?\"</p>
+    <button class="choice" onclick="lvl6_rabbit()">Odpowiedź: Idziemy do pizzerii</button>
+    <button class="choice" onclick="lvl6_rabbit()">Odpowiedź: Idę sam</button>
+  `;
+}
+
+// Spotkanie z królikiem
+function lvl6_rabbit() {
+  content.innerHTML = `
+    <h2>Biały królik</h2>
+    <p>Przed wami pojawia się duży mężczyzna w kostiumie białego królika (z kartonu). Chce, abyście poszli za nim. Chcesz iść za nim?</p>
+    <button class="choice" onclick="lvl6_followRabbit()">Tak</button>
+    <button class="choice" onclick="lvl6_noFollowRabbit()">Nie</button>
+  `;
+}
+
+function lvl6_followRabbit() {
+  if (playerPath.includes("uciekasz")) {
+    content.innerHTML = `
+      <h2>Koniec Poziomu 6</h2>
+      <p>Idziecie wszyscy zanim i zostajecie ogłuszeni. Koniec poziomu.</p>
+      <button class="choice" onclick="showLevels()">Powrót do wyboru poziomu</button>
+    `;
+  } else {
+    content.innerHTML = `
+      <h2>Koniec Poziomu 6</h2>
+      <p>Idziesz za królikiem i zostajesz ogłuszony. Ty i królik znikacie. Koniec poziomu.</p>
+      <button class="choice" onclick="showLevels()">Powrót do wyboru poziomu</button>
+    `;
+  }
+}
+
+function lvl6_noFollowRabbit() {
+  content.innerHTML = `
+    <h2>Koniec Poziomu 6</h2>
+    <p>Nie zdecydowałeś się iść za królikiem – poziom kończy się. Koniec poziomu.</p>
+    <button class="choice" onclick="showLevels()">Powrót do wyboru poziomu</button>
+  `;
+}
+
+    // Start gry
+    showMenu();
+  </script>
+</body>
+</html>
