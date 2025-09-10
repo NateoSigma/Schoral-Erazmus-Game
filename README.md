@@ -1,1 +1,0 @@
-# Schoral-Erazmus-Game
